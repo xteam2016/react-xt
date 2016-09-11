@@ -1,0 +1,1 @@
+{"code":0,"msg":"","data":{"supplierid":"269267","suppliername":"快餐王海红","cartid":"269267-1-5833632","customerid":"5833632","deviceid":0,"type":1,"dishlist":[],"deliveryfee":0,"packagefee":0,"delminorderamount":null,"allcount":0,"dishtotal":0,"total":0,"gapdelminorderamount":null,"servicerate":10,"deskcode":0,"category":[]}}

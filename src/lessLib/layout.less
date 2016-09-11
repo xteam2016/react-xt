@@ -1,0 +1,423 @@
+/**
+解释一下#layout构成,提供网格布局的方式及设置，主要包含3种布局：需要设置单元格宽高、不需设置其宽高和form布局。
+依赖文件：
+    "lib/reset";
+   
+@main layout
+@module layout  
+@since 1.0.0
+**/
+
+#layout {
+    // pc端试用
+    /**
+    单元格布局（类表格化）
+    #layout layoutunit(2,3,100,100,10); 2行3列 单元格100像素正方形，单元格之间距离为10px
+    HTML 结构
+    <div class="layout-unit u-2-3-100-100-10">
+            <div class="layout-wrap">
+                <div class="l-u u-2w">
+            a
+                </div>
+                <div class="l-u u-2h right">
+            b
+                </div>  
+                <div class="l-u">
+            c
+                </div>
+                <div class="l-u">
+            d
+                </div>
+            </div>
+    </div>
+    网格布局:中限定宽高，此方法提供布局含有单元格的行数，列数，宽度，高度和单元格之间的间距
+    @method layoutunit
+    @param {Number} @row 布局中单元格行数
+    @param {Number} @col 单元格列数
+    @param {Number} @width 单元格的宽度
+    @param {Number} @height 单元格的高度
+    @param {Number} @gap  单元格之间的间距
+    @module layout
+    @class #_layout
+    **/
+    
+    .layoutunit(@row, @col, @width, @height, @gap) {
+        @_wgap: @col*@gap - @gap;
+        @_hgap: @row*@gap - @gap;
+        @_ttlwidth: @col*@width + @_wgap;
+        @_ttlheight: @row*@height + @_hgap;
+        //单元格合并之后的高度
+        .UnitH (@index) when (@index > 1) {
+            @_unitheight: @index*@height + @index*@gap - @gap;
+            .u-@ {
+                index
+            }
+            h {
+                height:~"@{_unitheight}px";
+            }
+            .UnitH(@index - 1);
+        }
+        //单元格合并之后的宽度
+        .UnitW (@index) when (@index > 1) {
+            @_unitwidth: @index*@width + @index*@gap - @gap;
+            .u-@ {
+                index
+            }
+            w {
+                width:~"@{_unitwidth}px";
+            }
+            .UnitW(@index - 1);
+        }
+        .layout-unit {
+            .l-u {
+                float: left;
+                width:~"@{width}px";
+                height:~"@{height}px";
+                margin:~"0 @{gap}px @{gap}px 0";
+            }
+            .right {
+                float: right;
+            }
+        }
+        .layout-wrap {
+            margin:~"0 -@{gap}px -@{gap}px 0";
+            .clearfix();
+        }
+        .u-@ {
+            row
+        }
+        -@ {
+            col
+        }
+        -@ {
+            width
+        }
+        -@ {
+            height
+        }
+        -@ {
+            gap
+        }
+        {
+            width:~"@{_ttlwidth}px";
+            height:~"@{_ttlheight}px";
+            overflow: hidden;
+            //遍历生成高宽倍数
+            .UnitH(@row);
+            .UnitW(@col);
+        }
+    }
+    //布局安排中不存在宽度设置
+    //预设两列
+    .layout(@column: 1, @unit: l-u) {
+        > .@ {
+            unit
+        }
+        {
+            float: left;
+        }
+        //常用左右排列无宽度
+        .Divide(@col) when (@col=1) {
+            > .last {
+                float: right;
+            }
+        }
+        //如果是大于2列小于等于12列时,平均划分
+        .Divide(@col) when (@col < 12) and (@col > 1) {
+            > .@ {
+                unit
+            }
+            {
+                width: 1/@col * 100%;
+            }
+        }
+        .clearfix();
+        .Divide(@column);
+    }
+    /**form布局
+
+    调用犯法：
+    #layout .form(1,1,50px,left,12px,10px,12px,#de3f3b);
+
+    @param {String} @type 横向布局@type=1 纵向布局@type=2
+    @param {String} @tips 提示信息横向@tips=1 纵向@tips=2
+    @param {String} @labelWidth 标题宽度
+    @param {String} @align 标题文字对齐方式
+    @param {String} @fontSize 字号
+    @param {String} @marginBottom 行间距
+    @param {String} @tipSize 提示信息字体大小
+    @param {String} @tipColor 提示信息字体颜色
+
+    HTML基本结构：
+        <form class="form-inline">
+            <div class="form-elem">
+                <div class="elem-label">昵    称</div>
+                <div class="elem-content">
+                    <input type="text" class="m-inp inp-normal">
+                </div>
+                <div class="elem-tips">
+                    昵称不能为空
+                </div>
+            </div>
+            <div class="form-elem">
+                <div class="elem-label">邮    箱</div>
+                <div class="elem-content">
+                    <input type="text" class="m-inp inp-normal">
+                </div>
+                <div class="elem-tips">
+                    邮箱不能为空
+                </div>
+            </div>
+        </form>
+    
+
+    **/
+    
+    .form(@type: 1, @tips: 1, @labelWidth: 50px, @elemW: 50px, @align: left, @fontSize: 12px, @marginBottom: 10px, @tipSize, @tipColor) {
+        //横向form固定classname
+        .formType(@type, @tips) when (@type=1) {
+            .form {
+                // font-size:0;
+                .form-elem {
+                    margin-bottom: @marginBottom;
+                }
+                .elem-label {
+                    width: @labelWidth;
+                    text-align: @align;
+                    display: inline-block;
+                    font-size: @fontSize;
+                    vertical-align: middle;
+                }
+                .elem-desc {
+                    vertical-align: top;
+                }
+                .elem-content {
+                    margin-left: 10px;
+                    display: inline-block;
+                    *display: inline;
+                    font-size: @fontSize;
+                    vertical-align: middle;
+                    width: @elemW;
+                }
+                .tiptype(@tips)when(@tips=1) {
+                    .elem-tips {
+                        display: inline;
+                        font-size: @tipSize;
+                        vertical-align: middle;
+                        color: @tipColor;
+                        margin-left: 30px;
+                    }
+                }
+                .tiptype(@tips)when(@tips=2) {
+                    .elem-tips {
+                        display: block;
+                        margin-left: @labelWidth + 10px;
+                        font-size: @tipSize;
+                        color: @tipColor;
+                        line-height: 25px;
+                    }
+                }
+                .tiptype(@tips);
+            }
+        }
+        //纵向form
+        .formType(@type, @tips) when (@type=2) {
+            .form {
+                .form-elem {
+                    margin-bottom: @marginBottom;
+                }
+                .elem-label {
+                    width: auto;
+                    display: block;
+                    text-align: @align;
+                    font-size: @fontSize;
+                    margin-bottom: 10px;
+                }
+                .elem-content {
+                    display: inline-block;
+                }
+                .tiptype(@tips)when(@tips=1) {
+                    .elem-tips {
+                        display: inline;
+                        font-size: @tipSize;
+                        vertical-align: middle;
+                        color: @tipColor;
+                        margin-left: 10px;
+                    }
+                }
+                .tiptype(@tips)when(@tips=2) {
+                    .elem-tips {
+                        display: block;
+                        margin-left: @labelWidth + 10px;
+                        font-size: @tipSize;
+                        color: @tipColor;
+                        margin-top: 5px;
+                    }
+                }
+                .tiptype(@tips);
+            }
+        }
+        .formType(@type, @tips);
+    }
+    /** 行内表单布局
+    #layout .formInline(12px,5px,30px);
+
+    @param {String} @paddingR 标题右间距
+    @param {String} @color 标题字体颜色
+    @param {String} @marginR 
+
+
+    html结构：
+    <form class="form-inline">
+        <div class="form-elem">
+            <div class="elem-label">订单号</div>
+            <div class="elem-content">
+                <input type="text" class="m-inp inp-normal">
+            </div>
+        </div>
+        <div class="form-elem">
+            <div class="elem-label">价&nbsp;&nbsp;&nbsp;&nbsp;格</div>
+            <div class="elem-content">
+                <input type="text" class="m-inp inp-normal">
+            </div>
+        </div>
+        <div class="form-elem">
+            <button class="m-btn btn-flat-primary">搜索</button>
+        </div>
+    </form>
+
+    **/
+    
+    .formInline(@fontSize: 12px, @paddingR: 5px, @marginR: 30px) {
+        .form-inline {
+            // font-size:0;
+            .form-elem {
+                #display .inline();
+            }
+            .elem-label {
+                width: auto;
+                #display .inline-block();
+                padding-right: @paddingR;
+                font-size: @fontSize;
+                vertical-align: middle;
+            }
+            .elem-content {
+                margin-right: @marginR;
+                #display .inline-block();
+                vertical-align: middle;
+                font-size: @fontSize;
+            }
+        }
+    }
+    .table(@width: 100%, @bg: #fff, @color: #000, @textAlign: center, @border: 1px solid #ccc, @tdBorder: 1px solid #ccc, @tdPadding: 10px) {
+        .tb {
+            width: @width;
+            border: @border;
+            background-color: @bg;
+        }
+        td,
+        th {
+            border: @tdBorder;
+            padding: @tdPadding;
+            text-align: @textAlign;
+            color: @color;
+            vertical-align: middle;
+            font-weight: 300;
+        }
+    }
+    //H5适用
+    /**
+    table等分布局，使用时，HTML遵循以下形式：
+        css调用：
+        #layout .tbequal();
+
+        HTML遵循以下形式： 
+        单行行结构：
+        <ul class="table-equal">
+            <li>111</li>
+            <li>222</li>
+            <li>333</li>
+            <li>444</li>
+        </ul>
+        多行结构：
+        <div class="table-equal">
+            <ul>
+                <li>111</li>
+                <li>222</li>
+                <li>333</li>
+                <li>444</li>
+            </ul>
+            <ul>
+                <li>111</li>
+                <li>222</li>
+                <li>333</li>
+                <li>444</li>
+            </ul>
+        </div>
+
+
+    @module tbequal
+    @class tbequal
+    **/
+    
+    .tbequal() {
+        .table-equal {
+            #display .table();
+            table-layout: fixed;
+            width: 100%;
+            ul {
+                #display .table-row();
+            }
+            li {
+                #display .table-cell();
+            }
+        }
+    }
+    .form-h5(@spacing: 1rem, @marginL: 1rem, @marginR: 1rem, @doubleSpace: 0, @type: 1) {
+        .form-row {
+            margin-bottom: @spacing;
+            margin-left: @marginL;
+            margin-right: @marginR;
+            #display .box();
+            #display .box-align(center, justify);
+            vertical-align: middle;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        //没有label的时候
+        .label (@type) when (@type=0) {
+            .form-item {
+                #display .flex(1);
+                &:nth-child(2) {
+                    margin-left: @doubleSpace;
+                }
+                input,
+                a,
+                button,
+                textarea {
+                    width: 100%;
+                }
+            }
+        }
+        //有label的时候
+        .label (@type) when (@type=1) {
+            .form-item {
+                width: 100%;
+                #display .box();
+                #display .box-align(center, justify);
+                .m-ipt, .ipt-box {
+                    display: block;
+                    #display .flex(8);
+                    width: 80%;
+                }
+                .label-ti {
+                    #display .flex(1);
+                    display: block;
+                    font-size: 1.4rem;
+                }
+            }
+        }
+        .label(@type);
+    }
+}

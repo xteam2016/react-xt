@@ -1,0 +1,53 @@
+@import "../../lessLib/index";
+
+.menu-main{
+    position: relative;
+    #display .flex(2);
+    width:100%;
+    overflow: hidden;
+}
+
+.index-box{
+    border-top:1px solid #e1e1e1;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    &.no-activity{
+        padding-top:2.3rem;
+    }
+}
+.wrapper-list .swiper-slide {
+    text-align: center;
+    .font_dpr(40px);
+	display:block;
+    width: auto;
+	color:#666666;
+	padding:0.18rem 0.5rem;
+}
+.swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    flex-shrink: 0;
+    height: 100%;
+
+    position: relative;
+}
+.wrapper-list .current{
+	color:#ff5346;
+	border-bottom:1px solid #ff5346;
+}
+.swiper-lx{
+    height: 100%;
+}
+
+.swiper-ls{
+    width: 100%;
+    background: #fff;
+    z-index: 90;
+}
+.food-container{
+    overflow-y:scroll;
+    padding-bottom:1.5rem;
+}

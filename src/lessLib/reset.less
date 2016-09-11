@@ -1,0 +1,187 @@
+// 防止用户自定义网页背景及文字颜色、大小影响
+:global{
+html{
+    width: 100%;
+    height:100%;
+    font-family:@docFontFamily;
+    line-height:@docLineHeight;
+    font-size:@docFontSize;
+    color:@docTxtColor;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    background: transparent;
+}
+body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    font-weight:300;
+    font-size:1.2rem;
+    background-color: @docBg;
+}
+
+
+* {
+    #box .sizing(border-box);
+    outline:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+// 清除某些元素在不同浏览器下内外补白不同造成的影响
+body,ul,ol,dl,dd,h1,h2,h3,h4,h5,h6,figure,form,fieldset,legend,input,textarea,button,p,blockquote,th,td,pre,xmp{
+    margin:0;
+    padding:0;
+}
+
+h1,h2,h3,h4,h5,h6,b{
+    font-weight:300;
+}
+// 清除某些元素不继承祖先元素font-size的影响
+h1,h2,h3,h4,h5,h6,input,textarea,button,select,small{
+    font-size:100%;
+}
+// 将呈现为斜体的元素重置为正常文本
+address,cite,dfn,em,i,optgroup,var{
+    font-style:normal;
+}
+// 清除单元格边距并让边框合并
+table{
+    border-collapse:collapse;
+    border-spacing:0;
+}
+// 设置caption继承父元素的对齐方式，同时修复IE下th不继承父元素对齐方式bug
+caption,th{
+    text-align:inherit;
+}
+// 清除列表默认序号
+ul,ol,menu{
+    list-style:none;
+}
+// 清除默认边框
+fieldset,img{
+     border:none;
+}
+// 设置某些元素居中对齐
+img,object,input,textarea,button,select{
+    vertical-align:top;
+}
+// 设置mark元素有默认背景色
+mark{
+    background-color:@markColor;
+}
+// 设置某些HTML5元素为块元素
+article,aside,footer,header,section,nav,figure,figcaption,hgroup,details,menu{
+    #display .block();
+}
+// 设置HTML5新增媒体元素与img,object保持一致
+audio,canvas,video{
+    #display .inline-block();
+    vertical-align: baseline;
+}
+audio:not([controls]) {
+    display: none; height: 0;
+}
+[hidden], template {
+    display: none;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+
+// 清除引用元素的默认派生标识
+blockquote:before,blockquote:after,q:before,q:after{
+    content:'';
+}
+// 设置文本域滚动条需要时才出现
+textarea{
+    overflow:auto;
+    resize:none;
+}
+// 清除webkit下文本域的outline
+textarea,input{
+    outline:none;
+}
+// 清除文本线条装饰
+ins,s,u,del{
+    text-decoration:none;
+}
+// 预设默认链接表现
+a{
+    color:@linkColor;
+    background: transparent;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    &:hover,&:focus,&:active,&:visited{
+        outline:none;
+        text-decoration:none;
+    }
+    &:link{
+        color:@linkColor;
+    }
+    &:active{
+        color:@linkHoverColor;
+    }
+    &:visited{
+        color:@linkColor;
+    }
+}
+//清除button默认边框及虚线框
+button{
+    border:0 none;
+}
+button::-moz-focus-inner{
+    border:none;
+}
+button:focus{
+    outline:none; /* for Firefox，IE8.0等 */
+}
+//设置disabled背景色
+input[disabled]{
+     background: @inputBgDiscolor;
+     color: @inputTxtDisColor;
+}
+
+//设置placeholder的颜色
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+input::-moz-placeholder,
+textarea::-moz-placeholder,
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+input:input-placeholder,
+textarea:input-placeholder
+{
+    color:@placeholderColor;
+}
+//清除ie10下禁用密码输入框中的密码显示；
+::-ms-reveal{
+    display:none;
+}
+//清除focus的虚框Firefox
+:focus{outline:none;}
+
+input,
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+textarea,
+select{
+    border-width: 0;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+input:focus ,button:focus ,select:focus ,textarea:focus {
+    -moz-outline:none;
+    outline: none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+input:focus,textarea:focus {
+    -webkit-user-modify:read-write-plaintext-only;
+}
+input::-ms-clear{
+  display: none;
+  width : 0;
+  height: 0;
+}
+}

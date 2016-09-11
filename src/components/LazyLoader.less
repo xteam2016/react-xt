@@ -1,0 +1,33 @@
+@import "../lessLib/element";
+
+.list-loading{
+    // background-color:#fafafa;
+    text-align:center;
+    padding:0.5rem 0;
+    .font_dpr(46px);
+    vertical-align:middle;
+    span{
+        display:inline-block;
+        width:0.6rem;
+        vertical-align:middle;
+        margin-right:0.2rem;
+        img{
+          display:block;
+            width:100%;
+            margin-top:2px;
+            transform-origin:center center;
+                animation: rotate 1s linear infinite;
+        }
+    }
+  }
+    @keyframes rotate{
+      0% {
+          transform:rotate(0deg);
+      }
+      50% {
+          transform:rotate(180deg);
+      }
+      100% {
+          transform:rotate(360deg);
+      }
+  }

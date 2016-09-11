@@ -1,0 +1,104 @@
+@import "../../lessLib/index";
+.dialog-style{
+    // display: none;
+    position: fixed;
+    top:50%;
+    left:50%;
+    z-index:99;
+    .transform(translate(-50%,-50%));
+    width:80%;
+    background-color:#fff;
+    #box .radius(10px);
+    text-align: center;
+    padding:0.4rem;
+    h2{
+        position: relative;
+        .font_dpr(45px);
+        text-align:center;
+        color:#333;
+        margin-top:-0.3rem;
+        background-color:transparent;
+        #text .ellipsis();
+        .i-close{
+            position: absolute;
+            right:0;
+            top:30%;
+            .font_dpr(50px);
+        }
+    }
+    .d-price{
+        #display .box();
+        #display .box-align(center,justify);
+        .font_dpr(42px);
+        padding:0.3rem 0;
+        #box .line(@borderSubImg,2 stretch,@borderSubColor,0 0 1px 0);
+        .a-price{
+            display: block;
+            flex:1;
+            color:#ffaa07;
+            text-align:left;
+        }
+        em{
+            .font_dpr(78px);
+        }
+        .d-add{
+            display: block;
+            width:3rem;
+            padding:0.1rem;
+            background-color:#ff5346;
+            border-radius:5px;
+            color:#fff;
+            .font_dpr(45px);
+        }
+        .add-opc{
+            display: block;
+            text-align:right;
+            flex:1;
+            em{
+                color:#333;
+                padding:0 0.2rem;
+                vertical-align: middle;
+                .font_dpr(45px);
+            }
+            i{
+                .font_dpr(30px);
+                font-weight: 100;
+                border: 1px solid #c0c0c0;
+                border-radius:50%;
+                color:#c0c0c0;
+                padding:6px;
+                &.plus{
+                    color:#ff5346;
+                }
+            }
+        }
+
+    }
+    .d-style{
+        .font_dpr(42px);
+        h4{
+            text-align: left;
+            padding:0.3rem 0;
+        }
+        ul{
+            margin-bottom:-0.3rem;
+            .clearfix();
+        }
+        li{
+            float:left;
+            width:48%;
+            margin-right:4%;
+            border:1px solid #ccc;
+            margin-bottom:0.3rem;
+            border-radius:1rem;
+            padding:0.1rem;
+            &:nth-child(2n){
+                margin-right: 0;
+            }
+            &.active{
+                background-color: #ffddda;
+                border-color:#ff5346;
+            }
+        }
+    }
+}

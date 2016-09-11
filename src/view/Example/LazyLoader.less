@@ -1,0 +1,52 @@
+@import "../../lessLib/basic";
+@import "../../lessLib/variable";
+@import "../../lessLib/element";
+
+.list{
+  border-top: 1px solid @boredrColor;
+  border-bottom: 1px solid @boredrColor;
+  padding: 0.4rem 0.5rem 0;
+  margin-bottom: 0.2rem;
+  background: @markColor;
+  line-height: 2.5;
+  p{
+    position: absolute;
+    img{
+      width: 1.96rem;
+      height: 1.46rem;
+    }
+  }
+  div{
+    #display .box();
+    #display .box-align(top,justify);
+    padding-left: 2.3rem;
+    
+    dt{
+      display:block;
+      white-space:nowrap; 
+      overflow:hidden; 
+      text-overflow:ellipsis;
+      width: 3rem;
+      .font_dpr(42px);
+    }
+    dd{
+      .font_dpr(36px);
+      color: @txtSubColor;
+      em{
+        .font_dpr(48px);
+        color: #ffaa07;
+      }
+    }
+    span{
+      display: block;
+      padding-top: 0.3rem;
+      .font_dpr(42px);
+      color: @txtDefaultColor;
+    }
+  }
+}
+
+a{
+  display:block;
+  width:100%;
+}

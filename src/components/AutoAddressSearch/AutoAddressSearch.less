@@ -1,0 +1,71 @@
+@import "../../lessLib/index";
+.search-box{
+    #display .box();
+    #display .orient(vertical);
+}
+.in-search{
+    height: 100%;
+}
+.location {
+    padding:0.3rem 0.4rem;
+    text-align: center;
+    color: @txtHightColor;
+    background:#fafafa;
+    .font_dpr(42px);
+    border-bottom: 1px solid @boredrColor;
+    i {
+        margin-top: -0.1rem;
+    }
+    a{
+    	display:inline-block;
+    }
+}
+.adr-search{
+    #display .box();
+    #display .box-align(center,start);
+    text-align: left;
+    position:relative;
+    label{
+        display:block;
+        flex:5;
+        input{
+            border: 1px solid @boredrColor;
+            border-radius:20px;
+            width:100%;
+            padding:8px 0.7rem 8px 1rem;
+            line-height:1.5;
+        }
+        i{
+            position: absolute;
+            left:10px;
+            top:50%;
+            display:block;
+            color:#999;
+            .transform(translate(0,-30%));
+        }
+    }
+    a{
+        width:1em;
+        .font_dpr(60px);
+        margin-left:0.3rem;
+    }
+}
+
+
+.list-wrap{
+	overflow-y:scroll;
+	flex:1;
+	padding: 0 0.4rem;
+    background-color:#fff;
+}
+.address-item{
+	padding:0.4rem 0;
+	.font_dpr(42px);
+    div{
+        #text .ellipsis();
+    }
+	.address{
+		color:#999999;
+	}
+	border-bottom:1px solid #dcdcdc;
+}

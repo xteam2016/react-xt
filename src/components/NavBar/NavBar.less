@@ -1,0 +1,85 @@
+@import "../../lessLib/index";
+:global{
+  @header_height : 1.46rem;   // 166px;
+  .header{
+      height: @header_height;// 166px
+      border-bottom: 1px solid #eaeaea;
+      // display: -webkit-box;
+      // display: -ms-flexbox;
+      position: fixed;
+      z-index:100;
+      width:100%; 
+      #box .sizing(content-box);
+      .title{
+          .font_dpr(52px);//52px
+          text-align: center;
+          line-height: @header_height;        
+          height: @header_height;
+      		color:#333;
+          // -webkit-box-flex: 1;
+          // -ms-flex: 1;
+  		    background:#fafafa;
+      }
+      .nav-left{
+          vertical-align: middle;
+          line-height: @header_height;
+          height: @header_height;
+          position: absolute;
+          left: 0;
+          top:0;
+      }
+      
+      .m-icon{
+          margin: 0.4rem 0.4rem;
+          line-height: 1.01;
+          .font_dpr(52px);
+          width: .58rem;
+          height: .58rem;
+          vertical-align: middle;
+          display: inline-block;
+      }
+      
+      .rule{
+          position:absolute;
+          right:0.35rem;
+          top:30%;
+          color:#fff;
+          font-size:0.37rem;
+      }
+      .nav-right{
+          vertical-align: middle;
+          line-height: 1.46rem;
+          height: 1.46rem;
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding-right:.4rem;
+          .text{
+            // color:#fff;
+            .font_dpr(46px);
+            margin-right:0.6rem;
+          }
+      }
+  }
+  .header-wrap{
+      position:fixed;
+      width:100%;
+      top:0;
+      z-index:90;
+      height: 1.46rem;
+      &.no-activity{
+          height:2.3rem;
+          
+      }
+  }
+
+  .style-orange{
+    // .title{
+    //   background-color: #ff5346;
+    //   color: #fff;
+    // }
+    // .m-icon{
+    //   color: #fff;
+    // }
+  }
+}
